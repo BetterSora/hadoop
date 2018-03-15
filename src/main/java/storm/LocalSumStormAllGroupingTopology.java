@@ -18,10 +18,10 @@ import java.util.Map;
 
 /**
  * storm本地求和案列
- * shuffleGrouping测试(每个executor发一个)
+ * allGrouping测试(每个Task都发一个)
  * @author Qin
  */
-public class LocalSumStormShuffleGroupingTopology {
+public class LocalSumStormAllGroupingTopology {
     /**
      * Spout需要继承BaseRichSpout
      * 数据源需要产生数据并发射
@@ -107,10 +107,11 @@ public class LocalSumStormShuffleGroupingTopology {
         // Topology中需要指定Spout和Bolt的执行顺序
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("DataSourceSpout", new DataSourceSpout());
-        builder.setBolt("SumBolt", new SumBolt(), 3).setNumTasks(6).shuffleGrouping("DataSourceSpout");
+        builder.setBolt("SumBolt", new SumBolt(), 3).setNumTasks(6)
+                .allGrouping("DataSourceSpout");
 
         // 创建一个本地Storm集群：本地模式运行，不需要搭建Storm集群
         LocalCluster cluster = new LocalCluster();
-        cluster.submitTopology("LocalSumStormShuffleGroupingTopology", new Config(), builder.createTopology());
+        cluster.submitTopology("LocalSumStormAllGroupingTopology", new Config(), builder.createTopology());
     }
 }
