@@ -14,6 +14,7 @@ import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 import org.apache.storm.utils.Utils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,7 +48,8 @@ public class LocalSumStormFieldsGroupingTopology {
          */
         @Override
         public void nextTuple() {
-            collector.emit(new Values(number % 2, ++number));
+            List<Integer> taskId = collector.emit(new Values(number % 2, ++number));
+            System.out.println(taskId);
             System.out.println("Spout：" + number);
 
             // 防止数据产生太快
