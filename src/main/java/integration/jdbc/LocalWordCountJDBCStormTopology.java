@@ -1,10 +1,12 @@
 package integration.jdbc;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.FileUtils;
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.jdbc.bolt.JdbcInsertBolt;
+import org.apache.storm.jdbc.common.Column;
 import org.apache.storm.jdbc.common.ConnectionProvider;
 import org.apache.storm.jdbc.common.HikariCPConnectionProvider;
 import org.apache.storm.jdbc.mapper.JdbcMapper;
@@ -154,10 +156,20 @@ public class LocalWordCountJDBCStormTopology {
         hikariConfigMap.put("dataSource.password","root");
         ConnectionProvider connectionProvider = new HikariCPConnectionProvider(hikariConfigMap);
         String tableName = "word_count";
-        JdbcMapper simpleJdbcMapper = new SimpleJdbcMapper(tableName, connectionProvider);
+        /*JdbcMapper simpleJdbcMapper = new SimpleJdbcMapper(tableName, connectionProvider);
         JdbcInsertBolt wordPersistanceBolt = new JdbcInsertBolt(connectionProvider, simpleJdbcMapper)
                 .withTableName(tableName)
+                .withQueryTimeoutSecs(30);*/
+
+        // 相同word则更新count 要先将word设置为表的主键 alter table 表名 add primary key（字段名）
+        List<Column> columnSchema = Lists.newArrayList(
+                new Column("word", java.sql.Types.VARCHAR),
+                new Column("count", java.sql.Types.INTEGER));
+        JdbcMapper simpleJdbcMapper = new SimpleJdbcMapper(columnSchema);
+        JdbcInsertBolt wordPersistanceBolt = new JdbcInsertBolt(connectionProvider, simpleJdbcMapper)
+                .withInsertQuery("insert into word_count(word, count) values (?, ?) on duplicate key update count=values(count)")
                 .withQueryTimeoutSecs(30);
+
         builder.setBolt("wordPersistanceBolt", wordPersistanceBolt).shuffleGrouping("CountBolt");
 
         LocalCluster cluster = new LocalCluster();
