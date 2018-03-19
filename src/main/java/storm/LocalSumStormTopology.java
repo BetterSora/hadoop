@@ -29,7 +29,7 @@ public class LocalSumStormTopology {
         private SpoutOutputCollector collector;
 
         /**
-         * 初始化方法，只会被调用一次
+         * 初始化方法，只会被调用一次(有几个线程就调用几次)
          * @param conf 配置参数
          * @param context 上下文
          * @param collector 数据发射器
@@ -37,6 +37,7 @@ public class LocalSumStormTopology {
         @Override
         public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
             this.collector = collector;
+            System.out.println("spout我被调用了");
         }
 
         int number = 0;
@@ -69,14 +70,14 @@ public class LocalSumStormTopology {
      */
     public static class SumBolt extends BaseRichBolt {
         /**
-         * 初始化方法，会被执行一次
+         * 初始化方法，会被执行一次(有几个线程就调用几次)
          * @param stormConf 配置参数
          * @param context 上下文
          * @param collector 数据发射器
          */
         @Override
         public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
-
+            System.out.println("bolt我被调用了");
         }
 
         int sum = 0;
@@ -104,8 +105,8 @@ public class LocalSumStormTopology {
         // Storm中任何一个作业都是通过Topology的方式进行提交的
         // Topology中需要指定Spout和Bolt的执行顺序
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("DataSourceSpout", new DataSourceSpout());
-        builder.setBolt("SumBolt", new SumBolt()).shuffleGrouping("DataSourceSpout");
+        builder.setSpout("DataSourceSpout", new DataSourceSpout(), 3);
+        builder.setBolt("SumBolt", new SumBolt(), 2).shuffleGrouping("DataSourceSpout");
 
         // 创建一个本地Storm集群：本地模式运行，不需要搭建Storm集群
         LocalCluster cluster = new LocalCluster();
