@@ -1,0 +1,10 @@
+Find Action: ctrl+shift+a
+bookmarks: F11
+recent file: ctrl+e
+recent change file: ctrl+shift+e
+add to favorite: alt+shift+f
+next project window: ctrl+alt+]
+previous project window: ctrl+alt+[
+class: ctrl+n
+file: ctrl+shift+n
+symbol: ctrl+shift+alt+n
