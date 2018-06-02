@@ -26,7 +26,7 @@ public class StreamAccessTest {
     public void init() throws Exception {
 
         Configuration conf = new Configuration();
-        fs = FileSystem.get(new URI("hdfs://mini1:9000"), conf, "hadoop");
+        fs = FileSystem.get(new URI("hdfs://hadoop:8020"), conf, "qinzhen");
     }
 
     /**
@@ -51,10 +51,10 @@ public class StreamAccessTest {
     public void testDownLoadFileToLocal() throws IllegalArgumentException, IOException {
 
         //先获取一个文件的输入流----针对hdfs上的
-        FSDataInputStream in = fs.open(new Path("/jdk-7u65-linux-i586.tar.gz"));
+        FSDataInputStream in = fs.open(new Path("/idea重要快捷键.txt"));
 
         //再构造一个文件的输出流----针对本地的
-        FileOutputStream out = new FileOutputStream(new File("c:/jdk.tar.gz"));
+        FileOutputStream out = new FileOutputStream(new File("D:/idea重要快捷键.txt"));
 
         //再将输入流中数据传输到输出流
         IOUtils.copy(in, out);
@@ -69,14 +69,14 @@ public class StreamAccessTest {
     @Test
     public void testRandomAccess() throws IllegalArgumentException, IOException{
         //先获取一个文件的输入流----针对hdfs上的
-        FSDataInputStream in = fs.open(new Path("/iloveyou.txt"));
+        FSDataInputStream in = fs.open(new Path("/idea重要快捷键.txt"));
 
 
         //可以将流的起始偏移量进行自定义
         in.seek(22);
 
         //再构造一个文件的输出流----针对本地的
-        FileOutputStream out = new FileOutputStream(new File("c:/iloveyou.line.2.txt"));
+        FileOutputStream out = new FileOutputStream(new File("D:/idea重要快捷键.txt"));
 
         IOUtils.copy(in,out);
     }
