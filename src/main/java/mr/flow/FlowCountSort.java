@@ -66,8 +66,8 @@ public class FlowCountSort {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(FlowBean.class);
 
-        FileInputFormat.setInputPaths(job, new Path("C:/Users/qinzhen/Desktop/输出/flowcount/output/part-r-00000"));
-        FileOutputFormat.setOutputPath(job, new Path("C:/Users/qinzhen/Desktop/输出/flowcount/output1"));
+        FileInputFormat.setInputPaths(job, new Path("./data/flowcount/output/"));
+        FileOutputFormat.setOutputPath(job, new Path("./data/flowcount/output1"));
 
         boolean res = job.waitForCompletion(true);
         System.exit(res ? 0 : 1);

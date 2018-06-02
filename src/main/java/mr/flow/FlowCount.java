@@ -67,8 +67,8 @@ public class FlowCount {
         job.setPartitionerClass(ProvincePartitioner.class);
         job.setNumReduceTasks(5);
 
-        FileInputFormat.setInputPaths(job, new Path("C:/Users/qinzhen/Desktop/输出/flowcount/input/flowcount.txt"));
-        FileOutputFormat.setOutputPath(job, new Path("C:/Users/qinzhen/Desktop/输出/flowcount/output3"));
+        FileInputFormat.setInputPaths(job, new Path("./data/flowcount/input/flowcount.txt"));
+        FileOutputFormat.setOutputPath(job, new Path("./data/flowcount/output"));
 
         boolean res = job.waitForCompletion(true);
         System.exit(res ? 0 : 1);
