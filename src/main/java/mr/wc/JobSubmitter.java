@@ -66,6 +66,7 @@ public class JobSubmitter {
 		job.setNumReduceTasks(2);
 		
 		// 6、提交job给yarn
+		/*job.submit(); // 任务提交后客户端就结束了，控制台看不到结果*/
 		boolean res = job.waitForCompletion(true);
 		
 		System.exit(res?0:-1);
