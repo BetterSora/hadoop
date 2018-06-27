@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  * @author ThinkPad
  *
  */
-public class JobSubmitter {
+public class JobSubmitterWindowsToYarn {
 	public static void main(String[] args) throws Exception {
 		// 在代码中设置JVM系统参数，用于给job对象来获取访问HDFS的用户身份
 		System.setProperty("HADOOP_USER_NAME", "root");
