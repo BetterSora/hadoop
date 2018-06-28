@@ -16,34 +16,23 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class SharedFriendsStepTwo {
 
 	static class SharedFriendsStepTwoMapper extends Mapper<LongWritable, Text, Text, Text> {
+		Text k = new Text();
+		Text v = new Text();
 
-		// 拿到的数据是上一个步骤的输出结果
-		// A I,K,C,B,G,F,H,O,D,
-		// 友 人，人，人
+		// A-B C
 		@Override
 		protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-
 			String line = value.toString();
-			String[] friend_persons = line.split("\t");
+			String[] fields = line.split("\t");
+			k.set(fields[0]);
+			v.set(fields[1]);
 
-			String friend = friend_persons[0];
-			String[] persons = friend_persons[1].split(",");
-
-			Arrays.sort(persons);
-
-			for (int i = 0; i < persons.length - 1; i++) {
-				for (int j = i + 1; j < persons.length; j++) {
-					// 发出 <人-人，好友> ，这样，相同的“人-人”对的所有好友就会到同1个reduce中去
-					context.write(new Text(persons[i] + "-" + persons[j]), new Text(friend));
-				}
-
-			}
-
+			context.write(k, v);
 		}
-
 	}
 
 	static class SharedFriendsStepTwoReducer extends Reducer<Text, Text, Text, Text> {
+		Text v = new Text();
 
 		@Override
 		protected void reduce(Text person_person, Iterable<Text> friends, Context context) throws IOException, InterruptedException {
@@ -54,7 +43,9 @@ public class SharedFriendsStepTwo {
 				sb.append(friend).append(" ");
 
 			}
-			context.write(person_person, new Text(sb.toString()));
+
+			v.set(sb.toString());
+			context.write(person_person, v);
 		}
 
 	}
