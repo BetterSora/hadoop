@@ -40,9 +40,7 @@ public class OrderTopn {
 	public static class OrderTopnReducer extends Reducer<Text, OrderBean, OrderBean, NullWritable>{
 		
 		@Override
-		protected void reduce(Text key, Iterable<OrderBean> values,
-				Context context)
-				throws IOException, InterruptedException {
+		protected void reduce(Text key, Iterable<OrderBean> values, Context context) throws IOException, InterruptedException {
 			
 			// 获取topn的参数
 			int topn = context.getConfiguration().getInt("order.top.n",3);
