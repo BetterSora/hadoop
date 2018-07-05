@@ -39,7 +39,7 @@ public class JobSubmitterWindowsToYarn {
 		
 		// 1、封装参数：jar包所在的位置
 		job.setJar("d:/wc.jar");
-		//job.setJarByClass(JobSubmitter.class);
+		//job.setJarByClass(JobSubmitterWindowsToYarn.class);
 		
 		// 2、封装参数： 本次job所要调用的Mapper实现类、Reducer实现类
 		job.setMapperClass(WordcountMapper.class);
