@@ -167,5 +167,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.jdt:core:3.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-hdfs:test-jar:tests:2.6.0-cdh5.7.0" level="project" />
     <orderEntry type="library" name="Maven: commons-daemon:commons-daemon:1.0.13" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.47" level="project" />
   </component>
 </module>

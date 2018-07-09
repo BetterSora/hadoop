@@ -1,0 +1,55 @@
+ 5.1 Header定义：
+  		{
+            "sdk_ver"              :  xxx ,                必须      	// 采集SDK版本号
+            "time_zone"      	   :  xxx ,                必选          // 所有时间字段都是UTC时间，需要使用时区转换为当地时间，8：东8区， -8：西8区
+            "commit_id"            : "xxx",                必选          // 标识每次提交的唯一性
+            "commit_time"          :  xxx ,                必选          // 提交时间,提交本地采集数据到服务器的时间
+            "pid"				   : "xxx",				   必选			// process id, 程序一次运行的唯一id
+            
+            "app_token"        	   : "xxx" ,               必选          // 应用在采集系统中的唯一标识，由服务器生成，同一个app_token可以包括多个app_id
+                                                                          XIAONIU_A :小牛斗地主 安卓版
+                                                                          XIAONIU_I : 小牛斗地主  ios版
+                                                                          
+                                                                          XIAONIU_READER_A ：小牛读书 安卓版
+                                                                          XIAONIU_READER_I ：小牛读书  iosb版本                                               
+                                                                      
+            "app_id"   			   : "xxx" ,               必选          // 应用的标识，android下是包名)
+            "device_id"            : "xxx" ,               必选          // 唯一的设备标识
+            "device_id_type"       : "xxx" ,               必选          // enum ["imei", "soc", "mac", "uuid", "android_id", "build", "unknown"]
+            
+            "release_channel"      : "xxx" ,               必选          // 应用发行渠道（应用宝，豌豆荚，360手机助手，小米商城，appstore）
+            "app_ver_name"   	   : "xxx" ,               必选          // 应用的版本名称
+            "app_ver_code"         :  xxx  ,               必选          // 应用的版本号
+            "os_name"      		   : "xxx" ,               必选          // enum ["android", "ios", "windows", "winphone"]
+            "os_ver"               : "xxx" ,               必选          // 操作系统版本
+            "language"             : "xxx" ,               必选          // zh，en, de,...
+            "country"              : "xxx" ,               必选          // CN，US, DE,...
+            "manufacture"          : "xxx" ,               必须          // 设备制造商(Lenovo)
+            "device_model"         : "xxx" ,               必选          // 设备型号
+            "resolution"      	   : "xxx" ,               必选          // 屏幕分辨率, width*height(480*800)
+            "net_type"      	   :  xxx  ,               必选          // enum [0-Unknown; 1-Offline; 2-Wifi; 3-MobileData]
+            
+            "account"       	   : "xxx" ,               可选          // 用户在帐号系统注册的帐号，暂时不使用
+            "app_device_id"        : "xxx" ,               可选          //是传输时使用的设备ID
+            "mac" 				   : "xxx" ,               可选          // 设备的mac地址，可以保证稳定唯一，但是，手机开机后如果一直不打开wifi，是不能获取mac地址的
+            "android_id"   		   : "xxx" ,               可选          // android id, 刷系统后，会导致android id改变
+            "imei"      		   : "xxx" ,               可选          // 设备的imei号，有些手机的imei号相同(中国市场的山寨机)
+            "cid_sn"        	   : "xxx" ,               可选          // 内置存储CID(customer identity)序列号
+            "build_num"   		   : "xxx" ,               可选          // 固件版本号
+            "mobile_data_type"	   :  xxx  ,               可选          // enum[0-Unknown; 1-2G; 2-3G; 3-4G]
+            "promotion_channel"    : "xxx" ,       		   可选          // 统计三方应用在Google Play的推广
+            "carrier"         	   : "xxx"                 可选          // 运营商
+            "city"               :  "xxx"    可选                  // 城市
+            
+            "user_id"       : "xxx"       必选         //先看os_name 如果安卓 判断安卓id是否为空 为空 user_id 即为 device_id，不为空user_id 为android_id，
+                    
+                                                       如果ios  就为device_id
+            
+          
+            
+            
+        }
+        
+        
+        Events定义：
+          所有操作 记录

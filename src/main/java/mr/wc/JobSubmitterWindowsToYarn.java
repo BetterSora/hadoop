@@ -1,6 +1,5 @@
 package mr.wc;
 
-import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -10,16 +9,12 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 /**
  * 用于提交mapreduce job的客户端程序
  * 功能：
  *   1、封装本次job运行时所需要的必要参数
  *   2、跟yarn进行交互，将mapreduce程序成功的启动、运行
- * @author ThinkPad
- *
  */
 public class JobSubmitterWindowsToYarn {
 	public static void main(String[] args) throws Exception {
