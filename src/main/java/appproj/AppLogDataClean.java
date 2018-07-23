@@ -154,19 +154,20 @@ public class AppLogDataClean {
 
     public static void main(String[] args) throws Exception {
         // 在代码中设置JVM系统参数，用于给job对象来获取访问HDFS的用户身份
-        System.setProperty("HADOOP_USER_NAME", "qinzhen");
+        //System.setProperty("HADOOP_USER_NAME", "qinzhen");
 
         Configuration conf = new Configuration();
-        // 1、设置job运行时要访问的默认文件系统
+        /*// 1、设置job运行时要访问的默认文件系统
         conf.set("fs.defaultFS", "hdfs://hadoop:8020");
         // 2、设置job提交到哪去运行
         conf.set("mapreduce.framework.name", "yarn");
         conf.set("yarn.resourcemanager.hostname", "hadoop");
         // 3、如果要从windows系统上运行这个job提交客户端程序，则需要加这个跨平台提交的参数
-        conf.set("mapreduce.app-submission.cross-platform","true");
+        conf.set("mapreduce.app-submission.cross-platform","true");*/
 
         Job job = Job.getInstance(conf);
-        job.setJar("d:/app.jar");
+        //job.setJar("d:/app.jar");
+        job.setJarByClass(AppLogDataClean.class);
         job.setMapperClass(AppLogDataCleanMapper.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(NullWritable.class);
