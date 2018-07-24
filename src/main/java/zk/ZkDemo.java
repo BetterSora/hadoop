@@ -22,8 +22,11 @@ public class ZkDemo {
     @Before
     public void before() throws Exception {
         // 构造zk客户端，最后一个参数为收到事件后的回调函数
-        zk = new ZooKeeper(ADDRESS, SESSION_TIMEOUT, (WatchedEvent event) -> {System.out.println(event.toString());latch.countDown();});
-        // 由于对构造函数的调用是立即返回的，因此在使用新建的ZooKeeper对象之前一定要等待其与ZooKeeper服务之间的连接建立成功
+        zk = new ZooKeeper(ADDRESS, SESSION_TIMEOUT, (WatchedEvent event) -> {
+            // 由于对构造函数的调用是立即返回的，因此在使用新建的ZooKeeper对象之前一定要等待其与ZooKeeper服务之间的连接建立成功
+            if (event.getState() == Watcher.Event.KeeperState.SyncConnected)
+                latch.countDown();
+        });
         latch.await();
     }
 
