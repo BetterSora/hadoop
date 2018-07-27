@@ -24,7 +24,7 @@ public class HBaseClientDML {
     @Before
     public void getConn() throws Exception {
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "Slave1:2181,Slave2:2181,Slave3:2181");
+        conf.set("hbase.zookeeper.quorum", "hadoop:2181");
         conn = ConnectionFactory.createConnection(conf);
     }
 

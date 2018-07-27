@@ -24,7 +24,7 @@ public class HBaseClientDDL {
         // 会自动加载hbase-site.xml
         Configuration conf = HBaseConfiguration.create();
         // 设置ZooKeeper地址
-        conf.set("hbase.zookeeper.quorum", "Slave1:2181,Slave2:2181,Slave3:2181");
+        conf.set("hbase.zookeeper.quorum", "hadoop:2181");
 
         conn = ConnectionFactory.createConnection(conf);
     }
