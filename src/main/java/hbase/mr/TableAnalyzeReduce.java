@@ -11,6 +11,7 @@ import java.io.IOException;
 
 /**
  * Reduce业务逻辑
+ * KeyIn ValueIn KeyOut
  */
 public class TableAnalyzeReduce extends TableReducer<Text, IntWritable, NullWritable> {
     @Override
@@ -20,6 +21,7 @@ public class TableAnalyzeReduce extends TableReducer<Text, IntWritable, NullWrit
             i += value.get();
         }
 
+        // 以名字作为RowKey
         Put put = new Put(key.toString().getBytes());
         put.addColumn("info".getBytes(), "count".getBytes(), Bytes.toBytes(i));
 
