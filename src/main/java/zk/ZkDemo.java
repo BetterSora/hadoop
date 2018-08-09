@@ -39,7 +39,7 @@ public class ZkDemo {
 
     @Test
     public void testGet() throws KeeperException, InterruptedException {
-        byte[] result = zk.getData("/zk", true, null);
+        byte[] result = zk.getData("/zk", false, null);
         /*Thread.sleep(Integer.MAX_VALUE);*/
         System.out.println(new String(result));
     }
@@ -52,13 +52,13 @@ public class ZkDemo {
 
     @Test
     public void getChildren() throws KeeperException, InterruptedException {
-        List<String> children = zk.getChildren("/hbase", true);
+        List<String> children = zk.getChildren("/hbase", false);
         children.forEach(System.out::println);
     }
 
     @Test
     public void testExist() throws KeeperException, InterruptedException {
-        Stat result = zk.exists("/zk", true);
+        Stat result = zk.exists("/zk", false);
         System.out.println(result != null ? "true" : "false");
     }
 
